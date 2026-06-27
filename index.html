@@ -19,15 +19,26 @@
   --bdr:rgba(0,229,255,.1); --bdr2:rgba(255,255,255,.07);
   --fh:'Syne',sans-serif; --fb:'DM Sans',sans-serif; --fm:'JetBrains Mono',monospace;
   --r:8px; --nav:60px;
+  --shadow:rgba(0,0,0,.3);
+}
+/* LIGHT MODE */
+[data-theme="light"]{
+  --bg:#f0f4ff; --bg2:#e8edf8; --bg3:#dde4f5;
+  --surf:#ffffff; --surf2:#f5f7ff;
+  --a:#0077cc; --a2:#6a5acd; --a3:#e03050;
+  --grn:#16a34a; --gld:#b8860b;
+  --t:#0f172a; --t2:#475569; --t3:#94a3b8;
+  --bdr:rgba(0,119,204,.15); --bdr2:rgba(0,0,0,.08);
+  --shadow:rgba(0,0,0,.08);
 }
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--t);font-family:var(--fb);overflow-x:hidden;cursor:none;line-height:1.6;}
 
 /* grid bg */
-body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,229,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.018) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--bdr) 1px,transparent 1px),linear-gradient(90deg,var(--bdr) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
 /* blobs */
 .blob{position:fixed;border-radius:50%;filter:blur(110px);pointer-events:none;z-index:0;}
-.b1{width:480px;height:480px;background:var(--a2);opacity:.13;top:-160px;right:-80px;}
+.b1{width:480px;height:480px;background:var(--a2);opacity:.13;top:-160px;right:-80px;}[data-theme="light"] .b1{opacity:.07;}[data-theme="light"] .b2{opacity:.06;}
 .b2{width:400px;height:400px;background:var(--a);opacity:.11;bottom:-100px;left:-80px;}
 
 /* cursor */
@@ -37,7 +48,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 @media(pointer:coarse){#cur,#cur-r{display:none!important;}body{cursor:auto;}}
 
 /* ─── NAV ─── */
-nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(3,5,14,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr2);}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(3,5,14,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr2);}[data-theme="light"] nav{background:rgba(240,244,255,.92);}
 .nav-logo{font-family:var(--fh);font-size:1.05rem;font-weight:800;color:var(--a);text-decoration:none;}
 .nav-logo span{color:var(--t3);font-weight:600;}
 .nav-pill{display:flex;background:var(--surf);border:1px solid var(--bdr2);border-radius:100px;padding:.25rem;}
@@ -57,7 +68,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav);display:fl
 .ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
 /* mobile drawer */
-.mob{display:none;position:fixed;top:var(--nav);left:0;right:0;background:rgba(7,9,26,.97);backdrop-filter:blur(18px);border-bottom:1px solid var(--bdr2);padding:1.25rem;flex-direction:column;gap:.45rem;z-index:499;}
+.mob{display:none;position:fixed;top:var(--nav);left:0;right:0;background:rgba(7,9,26,.97);backdrop-filter:blur(18px);border-bottom:1px solid var(--bdr2);padding:1.25rem;flex-direction:column;gap:.45rem;z-index:499;}[data-theme="light"] .mob{background:rgba(240,244,255,.97);}
 .mob.open{display:flex;}
 .mob a{color:var(--t2);text-decoration:none;font-family:var(--fm);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;padding:.72rem 1rem;border-radius:var(--r);border:1px solid var(--bdr2);transition:all .2s;text-align:center;}
 .mob a:hover{color:var(--a);border-color:rgba(0,229,255,.2);background:rgba(0,229,255,.05);}
@@ -215,6 +226,32 @@ footer{position:relative;z-index:1;background:var(--bg);border-top:1px solid var
 .foot-made{font-family:var(--fm);font-size:.67rem;color:var(--t3);}
 .foot-made em{color:var(--a3);font-style:normal;}
 
+
+/* THEME TOGGLE */
+.theme-btn{background:var(--surf);border:1px solid var(--bdr2);border-radius:100px;width:38px;height:22px;position:relative;cursor:pointer;transition:all .3s;flex-shrink:0;padding:0;}
+.theme-btn::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:var(--a);transition:transform .3s,background .3s;}
+[data-theme="light"] .theme-btn::after{transform:translateX(16px);background:var(--gld);}
+.theme-wrap{display:flex;align-items:center;gap:.4rem;}
+.theme-icon{font-size:.75rem;transition:opacity .3s;}
+.moon-icon{opacity:1;}
+.sun-icon{opacity:0;position:absolute;}
+[data-theme="light"] .moon-icon{opacity:0;}
+[data-theme="light"] .sun-icon{opacity:1;position:relative;}
+
+
+/* Light mode card shadows */
+[data-theme="light"] .sg,
+[data-theme="light"] .exp-card,
+[data-theme="light"] .proj-card,
+[data-theme="light"] .edu-card,
+[data-theme="light"] .cert,
+[data-theme="light"] .ach,
+[data-theme="light"] .tile,
+[data-theme="light"] .citem{box-shadow:0 2px 12px var(--shadow);}
+[data-theme="light"] .exp-card{border-left-color:var(--a);}
+[data-theme="light"] .ham span{background:var(--t2);}
+[data-theme="light"] body::before{opacity:.5;}
+
 /* ─── ANIMATIONS ─── */
 @keyframes fu{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
@@ -325,6 +362,22 @@ footer{position:relative;z-index:1;background:var(--bg);border-top:1px solid var
   nav{padding:0 .85rem;}
   .wrap{padding:0 .85rem;}
 }
+
+/* Photo chip — move below image on mobile so it doesn't cover face */
+@media(max-width:600px){
+  .pinner{display:flex;flex-direction:column;}
+  .pchip{position:static;border-radius:0 0 12px 12px;border-top:1px solid var(--bdr);background:rgba(3,5,14,.95);padding:.6rem .85rem;}
+  [data-theme="light"] .pchip{background:rgba(240,244,255,.97);}
+  .pinner img{border-radius:0;}
+  .pframe::before{border-radius:14px;}
+}
+@media(max-width:380px){
+  .pchip{padding:.5rem .7rem;}
+  .pname{font-size:.72rem;}
+  .prole{font-size:.5rem;}
+  .pstatus{font-size:.54rem;}
+}
+
 </style>
 </head>
 <body>
@@ -344,6 +397,11 @@ footer{position:relative;z-index:1;background:var(--bg);border-top:1px solid var
   </div>
   <div class="nav-right">
     <div class="nav-badge">Open to Work</div>
+    <div class="theme-wrap">
+      <span class="theme-icon moon-icon">🌙</span>
+      <span class="theme-icon sun-icon">☀️</span>
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle theme"></button>
+    </div>
     <a href="mailto:suwetha.personall@gmail.com" class="nav-hire">Hire Me ↗</a>
     <button class="ham" id="ham" aria-label="Toggle menu">
       <span></span><span></span><span></span>
@@ -679,6 +737,17 @@ document.querySelectorAll('.reveal').forEach(el=>{
   new IntersectionObserver(entries=>{
     entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
   },{threshold:.08}).observe(el);
+});
+
+// Theme toggle
+const themeBtn=document.getElementById('themeBtn');
+const savedTheme=localStorage.getItem('theme')||'dark';
+document.documentElement.setAttribute('data-theme',savedTheme);
+themeBtn.addEventListener('click',()=>{
+  const cur=document.documentElement.getAttribute('data-theme');
+  const next=cur==='light'?'dark':'light';
+  document.documentElement.setAttribute('data-theme',next);
+  localStorage.setItem('theme',next);
 });
 </script>
 </body>
